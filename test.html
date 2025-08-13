@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Pokemon API</title>
+    <style>
+        .pokemon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px;
+        }
+        .pokemon-card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .pokemon-image img {
+            width: 100px;
+            height: 100px;
+        }
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Pokemon API</h1>
+    <div id="loading" class="loading">Loading Pokemon...</div>
+    <div id="pokemonGrid" class="pokemon-grid"></div>
+
+    <script>
+        console.log('Test script loaded!');
+        
+        async function testPokemonAPI() {
+            console.log('Testing Pokemon API...');
+            const loading = document.getElementById('loading');
+            const grid = document.getElementById('pokemonGrid');
+            
+            try {
+                console.log('Fetching Pikachu...');
+                const response = await fetch('https://pokeapi.co/api/v2/pokemon/25');
+                console.log('Response:', response);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const pokemon = await response.json();
+                console.log('Pokemon data:', pokemon);
+                
+                loading.style.display = 'none';
+                grid.innerHTML = `
+                    <div class="pokemon-card">
+                        <h3>${pokemon.name}</h3>
+                        <div class="pokemon-image">
+                            <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}">
+                        </div>
+                        <p>Height: ${pokemon.height / 10}m</p>
+                        <p>Weight: ${pokemon.weight / 10}kg</p>
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                loading.innerHTML = `
+                    <div style="color: red;">
+                        <h3>Error loading Pokemon!</h3>
+                        <p>${error.message}</p>
+                        <p>Using fallback data...</p>
+                    </div>
+                `;
+                
+                // Fallback
+                grid.innerHTML = `
+                    <div class="pokemon-card">
+                        <h3>Pikachu (Fallback)</h3>
+                        <div class="pokemon-image">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="Pikachu">
+                        </div>
+                        <p>Height: 0.4m</p>
+                        <p>Weight: 6kg</p>
+                        <p style="color: orange;">This is fallback data</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Run test when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded, starting test...');
+            testPokemonAPI();
+        });
+    </script>
+</body>
+</html>
