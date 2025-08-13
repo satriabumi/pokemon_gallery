@@ -1,0 +1,168 @@
+/* Pokemon Types Page Specific Styles */
+
+.types-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    color: var(--white);
+    padding: var(--spacing-xxl) 0;
+    text-align: center;
+}
+
+.header-content h1 {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header-content p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.types-section {
+    padding: var(--spacing-xxl) 0;
+    background: var(--white);
+}
+
+.types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.type-card {
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--light-gray);
+    transition: var(--transition-normal);
+    text-align: center;
+}
+
+.type-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.type-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--spacing-lg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--white);
+}
+
+.type-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--dark-gray);
+}
+
+.type-description {
+    color: var(--gray);
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.6;
+}
+
+.type-effectiveness {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+}
+
+.effectiveness-group h4 {
+    font-size: 1rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--dark-gray);
+}
+
+.effectiveness-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.effectiveness-badge {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--white);
+    text-transform: uppercase;
+}
+
+.type-chart-section {
+    padding: var(--spacing-xxl) 0;
+    background: var(--bg-secondary);
+}
+
+.type-chart-section h2 {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    color: var(--dark-gray);
+    font-size: 2rem;
+}
+
+.type-chart-container {
+    overflow-x: auto;
+}
+
+.type-chart {
+    min-width: 800px;
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Type-specific colors */
+.type-card.normal .type-icon { background-color: #A8A878; }
+.type-card.fire .type-icon { background-color: #F08030; }
+.type-card.water .type-icon { background-color: #6890F0; }
+.type-card.electric .type-icon { background-color: #F8D030; }
+.type-card.grass .type-icon { background-color: #78C850; }
+.type-card.ice .type-icon { background-color: #98D8D8; }
+.type-card.fighting .type-icon { background-color: #C03028; }
+.type-card.poison .type-icon { background-color: #A040A0; }
+.type-card.ground .type-icon { background-color: #E0C068; }
+.type-card.flying .type-icon { background-color: #A890F0; }
+.type-card.psychic .type-icon { background-color: #F85888; }
+.type-card.bug .type-icon { background-color: #A8B820; }
+.type-card.rock .type-icon { background-color: #B8A038; }
+.type-card.ghost .type-icon { background-color: #705898; }
+.type-card.dragon .type-icon { background-color: #7038F8; }
+.type-card.dark .type-icon { background-color: #705848; }
+.type-card.steel .type-icon { background-color: #B8B8D0; }
+.type-card.fairy .type-icon { background-color: #EE99AC; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .types-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .type-effectiveness {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content h1 {
+        font-size: 2rem;
+    }
+    
+    .type-card {
+        padding: var(--spacing-lg);
+    }
+}
