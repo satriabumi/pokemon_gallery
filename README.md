@@ -1,0 +1,1 @@
+I created this website for my exercise how to integrate API using public API. The API is https://pokeapi.co/
