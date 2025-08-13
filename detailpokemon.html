@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Pokemon - Pokemon Gallery</title>
+    <meta name="description" content="Informasi detail lengkap tentang Pokemon termasuk statistik, evolusi, dan kemampuan">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/detailpokemon.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/img/icon/favicon.ico">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="home.html" class="nav-brand">
+                    <img src="assets/img/icon/pokeball.png" alt="Pokemon Gallery" onerror="this.style.display='none'">
+                    Pokemon Gallery
+                </a>
+                
+                <ul class="nav-menu">
+                    <li><a href="home.html" class="nav-link">Home</a></li>
+                    <li><a href="pokedex.html" class="nav-link">Pokédex</a></li>
+                    <li><a href="pokemontype.html" class="nav-link">Types</a></li>
+                    <li><a href="moves.html" class="nav-link">Moves</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                </ul>
+                
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Loading State -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Memuat data Pokemon...</p>
+        </div>
+
+        <!-- Pokemon Detail Section -->
+        <section class="pokemon-detail" id="pokemon-detail" style="display: none;">
+            <div class="container">
+                <!-- Back Button -->
+                <div class="back-button">
+                    <a href="pokedex.html" class="btn btn-outline">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        Kembali ke Pokédex
+                    </a>
+                </div>
+
+                <!-- Pokemon Header -->
+                <div class="pokemon-header">
+                    <div class="pokemon-image-container">
+                        <div class="pokemon-image">
+                            <img id="pokemon-image" src="" alt="" onerror="this.src='assets/img/icon/pokemon-placeholder.png'">
+                        </div>
+                        <div class="pokemon-id" id="pokemon-id"></div>
+                    </div>
+                    
+                    <div class="pokemon-info">
+                        <h1 id="pokemon-name"></h1>
+                        <div class="pokemon-types" id="pokemon-types"></div>
+                        <div class="pokemon-description">
+                            <p id="pokemon-description">Pokemon yang kuat dan tangguh dengan kemampuan yang luar biasa.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pokemon Stats Grid -->
+                <div class="pokemon-stats-grid">
+                    <!-- Basic Info -->
+                    <div class="stats-card">
+                        <h3>Informasi Dasar</h3>
+                        <div class="stats-content">
+                            <div class="stat-row">
+                                <span class="stat-label">Tinggi</span>
+                                <span class="stat-value" id="pokemon-height"></span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Berat</span>
+                                <span class="stat-value" id="pokemon-weight"></span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Kategori</span>
+                                <span class="stat-value" id="pokemon-category"></span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Kemampuan</span>
+                                <span class="stat-value" id="pokemon-abilities"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Base Stats -->
+                    <div class="stats-card">
+                        <h3>Statistik Dasar</h3>
+                        <div class="stats-content">
+                            <div class="stat-bar">
+                                <span class="stat-label">HP</span>
+                                <div class="stat-bar-container">
+                                    <div class="stat-bar-fill" id="hp-bar"></div>
+                                </div>
+                                <span class="stat-value" id="hp-value"></span>
+                            </div>
+                            <div class="stat-bar">
+                                <span class="stat-label">Attack</span>
+                                <div class="stat-bar-container">
+                                    <div class="stat-bar-fill" id="attack-bar"></div>
+                                </div>
+                                <span class="stat-value" id="attack-value"></span>
+                            </div>
+                            <div class="stat-bar">
+                                <span class="stat-label">Defense</span>
+                                <div class="stat-bar-container">
+                                    <div class="stat-bar-fill" id="defense-bar"></div>
+                                </div>
+                                <span class="stat-value" id="defense-value"></span>
+                            </div>
+                            <div class="stat-bar">
+                                <span class="stat-label">Speed</span>
+                                <div class="stat-bar-container">
+                                    <div class="stat-bar-fill" id="speed-bar"></div>
+                                </div>
+                                <span class="stat-value" id="speed-value"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Type Effectiveness -->
+                    <div class="stats-card">
+                        <h3>Efektivitas Type</h3>
+                        <div class="stats-content">
+                            <div class="effectiveness-section">
+                                <h4>Lemah Terhadap</h4>
+                                <div class="type-list" id="weaknesses"></div>
+                            </div>
+                            <div class="effectiveness-section">
+                                <h4>Kebal Terhadap</h4>
+                                <div class="type-list" id="resistances"></div>
+                            </div>
+                            <div class="effectiveness-section">
+                                <h4>Kebal Total</h4>
+                                <div class="type-list" id="immunities"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evolution Chain -->
+                <div class="evolution-section">
+                    <h2>Rantai Evolusi</h2>
+                    <div class="evolution-chain" id="evolution-chain">
+                        <!-- Evolution chain will be generated here -->
+                    </div>
+                </div>
+
+                <!-- Moves Section -->
+                <div class="moves-section">
+                    <h2>Jurus yang Dapat Dipelajari</h2>
+                    <div class="moves-grid" id="moves-grid">
+                        <!-- Moves will be generated here -->
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="navigation-buttons">
+                    <button class="btn btn-outline" id="prev-pokemon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6"/>
+                        </svg>
+                        Pokemon Sebelumnya
+                    </button>
+                    <button class="btn btn-outline" id="next-pokemon">
+                        Pokemon Berikutnya
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Error State -->
+        <div class="error-state" id="error-state" style="display: none;">
+            <div class="error-content">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="15" y1="9" x2="9" y2="15"/>
+                    <line x1="9" y1="9" x2="15" y2="15"/>
+                </svg>
+                <h3>Pokemon Tidak Ditemukan</h3>
+                <p>Maaf, Pokemon yang Anda cari tidak ditemukan dalam database kami.</p>
+                <a href="pokedex.html" class="btn btn-primary">Kembali ke Pokédex</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Pokemon Gallery</h3>
+                    <p>Platform terbaik untuk mempelajari dan mengeksplorasi dunia Pokemon dengan informasi lengkap dan akurat.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Navigasi</h3>
+                    <a href="home.html">Home</a>
+                    <a href="pokedex.html">Pokédex</a>
+                    <a href="pokemontype.html">Types</a>
+                    <a href="moves.html">Moves</a>
+                    <a href="about.html">About</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Fitur</h3>
+                    <a href="pokedex.html">Pokemon Database</a>
+                    <a href="pokemontype.html">Type Matchups</a>
+                    <a href="moves.html">Moves Guide</a>
+                    <a href="detailpokemon.html">Pokemon Details</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Kontak</h3>
+                    <p>Email: info@pokemongallery.com</p>
+                    <p>Follow kami di social media</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Pokemon Gallery. Dibuat dengan ❤️ untuk komunitas Pokemon.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script/main.js"></script>
+    <script src="script/detailpokemon.js"></script>
+</body>
+</html>

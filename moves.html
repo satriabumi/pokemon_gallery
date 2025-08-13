@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Moves - Pokemon Gallery</title>
+    <meta name="description" content="Database lengkap jurus Pokemon dengan power, accuracy, dan efek khusus">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/moves.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/img/icon/favicon.ico">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="home.html" class="nav-brand">
+                    <img src="assets/img/icon/pokeball.png" alt="Pokemon Gallery" onerror="this.style.display='none'">
+                    Pokemon Gallery
+                </a>
+                
+                <ul class="nav-menu">
+                    <li><a href="home.html" class="nav-link">Home</a></li>
+                    <li><a href="pokedex.html" class="nav-link">Pokédex</a></li>
+                    <li><a href="pokemontype.html" class="nav-link">Types</a></li>
+                    <li><a href="moves.html" class="nav-link active">Moves</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                </ul>
+                
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header Section -->
+        <section class="moves-header">
+            <div class="container">
+                <div class="header-content">
+                    <h1>Pokemon Moves</h1>
+                    <p>Database lengkap jurus Pokemon dengan power, accuracy, dan efek khusus</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search and Filter Section -->
+        <section class="search-section">
+            <div class="container">
+                <div class="search-container">
+                    <div class="search-box">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                        <input type="text" class="search-input" placeholder="Cari jurus berdasarkan nama atau type...">
+                    </div>
+                    
+                    <div class="filter-container">
+                        <button class="filter-btn active" data-type="all">Semua</button>
+                        <button class="filter-btn" data-type="physical">Physical</button>
+                        <button class="filter-btn" data-type="special">Special</button>
+                        <button class="filter-btn" data-type="status">Status</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Moves Grid Section -->
+        <section class="moves-section">
+            <div class="container">
+                <div class="moves-grid" id="moves-grid">
+                    <!-- Moves cards will be generated here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Pokemon Gallery</h3>
+                    <p>Platform terbaik untuk mempelajari dan mengeksplorasi dunia Pokemon dengan informasi lengkap dan akurat.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Navigasi</h3>
+                    <a href="home.html">Home</a>
+                    <a href="pokedex.html">Pokédex</a>
+                    <a href="pokemontype.html">Types</a>
+                    <a href="moves.html">Moves</a>
+                    <a href="about.html">About</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Fitur</h3>
+                    <a href="pokedex.html">Pokemon Database</a>
+                    <a href="pokemontype.html">Type Matchups</a>
+                    <a href="moves.html">Moves Guide</a>
+                    <a href="detailpokemon.html">Pokemon Details</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Kontak</h3>
+                    <p>Email: info@pokemongallery.com</p>
+                    <p>Follow kami di social media</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Pokemon Gallery. Dibuat dengan ❤️ untuk komunitas Pokemon.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script/main.js"></script>
+    <script src="script/moves.js"></script>
+</body>
+</html>

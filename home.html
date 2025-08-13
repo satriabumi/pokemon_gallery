@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Gallery - Temukan Dunia Pokemon</title>
+    <meta name="description" content="Jelajahi dunia Pokemon dengan koleksi lengkap Pokemon, informasi detail, dan panduan type matchups">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/home.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/img/icon/favicon.ico">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="home.html" class="nav-brand">
+                    <img src="assets/img/icon/pokeball.png" alt="Pokemon Gallery" onerror="this.style.display='none'">
+                    Pokemon Gallery
+                </a>
+                
+                <ul class="nav-menu">
+                    <li><a href="home.html" class="nav-link active">Home</a></li>
+                    <li><a href="pokedex.html" class="nav-link">Pokédex</a></li>
+                    <li><a href="pokemontype.html" class="nav-link">Types</a></li>
+                    <li><a href="moves.html" class="nav-link">Moves</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                </ul>
+                
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Jelajahi Dunia Pokemon</h1>
+                    <p>Temukan, pelajari, dan kuasai dunia Pokemon dengan koleksi lengkap kami. Dari Pokemon legendaris hingga yang paling umum, semua ada di sini.</p>
+                    <a href="pokedex.html" class="btn btn-primary">
+                        <span>Mulai Eksplorasi</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                                <line x1="15" y1="9" x2="15.01" y2="9"/>
+                            </svg>
+                        </div>
+                        <h3>Pokédex Lengkap</h3>
+                        <p>Koleksi lengkap Pokemon dengan informasi detail, statistik, dan evolusi.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </div>
+                        <h3>Type Matchups</h3>
+                        <p>Pelajari kelemahan dan keunggulan setiap type Pokemon untuk strategi yang lebih baik.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                            </svg>
+                        </div>
+                        <h3>Moves Database</h3>
+                        <p>Database lengkap jurus Pokemon dengan power, accuracy, dan efek khusus.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Pokemon Section -->
+        <section class="popular-pokemon">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Pokemon Populer</h2>
+                    <p>Beberapa Pokemon favorit yang sering dicari</p>
+                </div>
+                
+                <!-- Loading State -->
+                <div class="loading-state" id="pokemonLoading">
+                    <div class="spinner"></div>
+                    <p>Memuat Pokemon populer...</p>
+                </div>
+                
+                <!-- Error State -->
+                <div class="error-state" id="pokemonError" style="display: none;">
+                    <div class="error-icon">⚠️</div>
+                    <h3>Ups! Terjadi Kesalahan</h3>
+                    <p>Tidak dapat memuat data Pokemon. Silakan coba lagi.</p>
+                    <button class="btn btn-primary" onclick="homePage.retryLoadPokemon()">Coba Lagi</button>
+                </div>
+                
+                <div class="pokemon-grid" id="pokemonGrid">
+                    <!-- Pokemon cards will be loaded here from API -->
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="pokedex.html" class="btn btn-outline">Lihat Semua Pokemon</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Siap untuk Petualangan?</h2>
+                    <p>Bergabunglah dengan ribuan trainer lainnya dalam menjelajahi dunia Pokemon yang menakjubkan.</p>
+                    <div class="cta-buttons">
+                        <a href="pokedex.html" class="btn btn-primary">Mulai Sekarang</a>
+                        <a href="about.html" class="btn btn-outline">Pelajari Lebih Lanjut</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Pokemon Gallery</h3>
+                    <p>Platform terbaik untuk mempelajari dan mengeksplorasi dunia Pokemon dengan informasi lengkap dan akurat.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Navigasi</h3>
+                    <a href="home.html">Home</a>
+                    <a href="pokedex.html">Pokédex</a>
+                    <a href="pokemontype.html">Types</a>
+                    <a href="moves.html">Moves</a>
+                    <a href="about.html">About</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Fitur</h3>
+                    <a href="pokedex.html">Pokemon Database</a>
+                    <a href="pokemontype.html">Type Matchups</a>
+                    <a href="moves.html">Moves Guide</a>
+                    <a href="detailpokemon.html">Pokemon Details</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Kontak</h3>
+                    <p>Email: info@pokemongallery.com</p>
+                    <p>Follow kami di social media</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Pokemon Gallery. Dibuat dengan ❤️ untuk komunitas Pokemon.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script/main.js"></script>
+    <script src="script/home.js"></script>
+</body>
+</html>

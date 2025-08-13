@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex - Pokemon Gallery</title>
+    <meta name="description" content="Jelajahi koleksi lengkap Pokemon dengan informasi detail dan statistik">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/pokedex.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/img/icon/favicon.ico">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="home.html" class="nav-brand">
+                    <img src="assets/img/icon/pokeball.png" alt="Pokemon Gallery" onerror="this.style.display='none'">
+                    Pokemon Gallery
+                </a>
+                
+                <ul class="nav-menu">
+                    <li><a href="home.html" class="nav-link">Home</a></li>
+                    <li><a href="pokedex.html" class="nav-link active">Pokédex</a></li>
+                    <li><a href="pokemontype.html" class="nav-link">Types</a></li>
+                    <li><a href="moves.html" class="nav-link">Moves</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                </ul>
+                
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header Section -->
+        <section class="pokedex-header">
+            <div class="container">
+                <div class="header-content">
+                    <h1>Pokédex</h1>
+                    <p>Jelajahi koleksi lengkap Pokemon dari seluruh dunia</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search and Filter Section -->
+        <section class="search-section">
+            <div class="container">
+                <div class="search-container">
+                    <div class="search-box">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                        <input type="text" class="search-input" placeholder="Cari Pokemon">
+                    </div>
+                    
+                    <div class="filter-container">
+                        <button class="filter-btn active" data-type="all">Semua</button>
+                        <button class="filter-btn" data-type="normal">Normal</button>
+                        <button class="filter-btn" data-type="fire">Fire</button>
+                        <button class="filter-btn" data-type="water">Water</button>
+                        <button class="filter-btn" data-type="electric">Electric</button>
+                        <button class="filter-btn" data-type="grass">Grass</button>
+                        <button class="filter-btn" data-type="ice">Ice</button>
+                        <button class="filter-btn" data-type="fighting">Fighting</button>
+                        <button class="filter-btn" data-type="poison">Poison</button>
+                        <button class="filter-btn" data-type="ground">Ground</button>
+                        <button class="filter-btn" data-type="flying">Flying</button>
+                        <button class="filter-btn" data-type="psychic">Psychic</button>
+                        <button class="filter-btn" data-type="bug">Bug</button>
+                        <button class="filter-btn" data-type="rock">Rock</button>
+                        <button class="filter-btn" data-type="ghost">Ghost</button>
+                        <button class="filter-btn" data-type="dragon">Dragon</button>
+                        <button class="filter-btn" data-type="dark">Dark</button>
+                        <button class="filter-btn" data-type="steel">Steel</button>
+                        <button class="filter-btn" data-type="fairy">Fairy</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pokemon Grid Section -->
+        <section class="pokemon-section">
+            <div class="container">
+                <div class="pokemon-stats">
+                    <div class="stats-item">
+                        <span class="stats-label">Total Pokemon</span>
+                        <span class="stats-value" id="total-pokemon">151</span>
+                    </div>
+                    <div class="stats-item">
+                        <span class="stats-label">Ditampilkan</span>
+                        <span class="stats-value" id="shown-pokemon">151</span>
+                    </div>
+                </div>
+
+                <div class="pokemon-grid" id="pokemon-grid">
+                    <!-- Pokemon cards will be generated here -->
+                </div>
+
+                <!-- Loading State -->
+                <div class="loading" id="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Memuat Pokemon...</p>
+                </div>
+
+                <!-- No Results State -->
+                <div class="no-results" id="no-results" style="display: none;">
+                    <div class="no-results-content">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                        <h3>Tidak ada Pokemon ditemukan</h3>
+                        <p>Coba ubah kata kunci pencarian atau filter type</p>
+                    </div>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="load-more-container" id="load-more-container">
+                    <button class="btn btn-outline" id="load-more-btn">Muat Lebih Banyak</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Pokemon Gallery</h3>
+                    <p>Platform terbaik untuk mempelajari dan mengeksplorasi dunia Pokemon dengan informasi lengkap dan akurat.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Navigasi</h3>
+                    <a href="home.html">Home</a>
+                    <a href="pokedex.html">Pokédex</a>
+                    <a href="pokemontype.html">Types</a>
+                    <a href="moves.html">Moves</a>
+                    <a href="about.html">About</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Fitur</h3>
+                    <a href="pokedex.html">Pokemon Database</a>
+                    <a href="pokemontype.html">Type Matchups</a>
+                    <a href="moves.html">Moves Guide</a>
+                    <a href="detailpokemon.html">Pokemon Details</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Kontak</h3>
+                    <p>Email: info@pokemongallery.com</p>
+                    <p>Follow kami di social media</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Pokemon Gallery. Dibuat dengan ❤️ untuk komunitas Pokemon.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script/main.js"></script>
+    <script src="script/pokedex.js"></script>
+</body>
+</html>
