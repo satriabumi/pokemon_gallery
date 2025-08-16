@@ -161,13 +161,24 @@
 }
 
 .cta-content h2 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: var(--spacing-lg);
     color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+
+.pokeapi-logo {
+    height: 40px;
+    width: auto;
+    vertical-align: middle;
 }
 
 .cta-content p {
     font-size: 1.2rem;
+    color: #ffffff;
     margin-bottom: var(--spacing-xl);
     opacity: 0.9;
     max-width: 600px;
@@ -193,6 +204,8 @@
     display: flex;
     align-items: center;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    color: var(--white); /* Pastikan warna teks putih untuk kontras */
+    text-align: center; /* Pusatkan konten */
 }
 
 .hero::after {
@@ -209,25 +222,37 @@
 .hero-content {
     position: relative;
     z-index: 3;
+    width: 100%; /* Pastikan konten mengambil lebar penuh untuk pemusatan */
 }
 
-.hero h1 {
-    font-size: 4rem;
-    font-weight: 800;
-    margin-bottom: var(--spacing-lg);
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+/* Gaya baru untuk logo */
+.hero-logo {
+    max-width: 600px; /* Sesuaikan ukuran maksimum logo */
+    width: 90%; /* Lebar responsif */
+    height: auto;
+    margin-bottom: var(--spacing-lg); /* Kurangi jarak di bawah logo */
     animation: fadeInUp 1s ease-out;
-}
-
-.hero p {
-    font-size: 1.3rem;
-    margin-bottom: var(--spacing-xl);
-    opacity: 0.95;
-    max-width: 700px;
+    display: block; /* Pastikan elemen berperilaku seperti blok untuk margin auto */
     margin-left: auto;
     margin-right: auto;
-    animation: fadeInUp 1s ease-out 0.2s both;
 }
+
+/* Hero Description */
+.hero-description {
+    font-size: 1.2rem;
+    color: var(--white);
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto var(--spacing-xl);
+    line-height: 1.6;
+    opacity: 0.95;
+    animation: fadeInUp 1s ease-out 0.2s both;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Hapus gaya h1 dan p yang tidak lagi digunakan */
+/* .hero h1 { ... } */
+/* .hero p { ... } */
 
 .hero .btn {
     animation: fadeInUp 1s ease-out 0.4s both;
@@ -242,13 +267,21 @@
 
 /* Responsive Design for Home */
 @media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.5rem;
+    /* Sesuaikan ukuran logo hero untuk layar lebih kecil */
+    .hero-logo {
+        max-width: 400px;
+        margin-bottom: var(--spacing-md); /* Kurangi jarak untuk mobile */
     }
     
-    .hero p {
-        font-size: 1.1rem;
+    .hero-description {
+        font-size: 1rem;
+        margin-bottom: var(--spacing-lg);
+        padding: 0 var(--spacing-md);
     }
+    
+    /* Hapus media query h1 dan p yang tidak lagi digunakan */
+    /* .hero h1 { ... } */
+    /* .hero p { ... } */
     
     .features-grid {
         grid-template-columns: 1fr;
@@ -301,6 +334,50 @@
         flex-direction: column;
         text-align: center;
         gap: 2px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Sesuaikan ukuran logo hero untuk layar yang lebih kecil lagi */
+    .hero-logo {
+        max-width: 300px;
+        margin-bottom: var(--spacing-md);
+    }
+    /* Hapus media query h1 dan p yang tidak lagi digunakan */
+    /* .hero h1 { ... } */
+    /* .hero p { ... } */
+    
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .feature-card h3 {
+        font-size: 1.25rem;
+    }
+    
+    /* Pokemon Cards Mobile Small */
+    .pokemon-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .popular-pokemon .pokemon-image {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .popular-pokemon .pokemon-name {
+        font-size: 1.1rem;
+    }
+    
+    .popular-pokemon .pokemon-types {
+        gap: 4px;
+    }
+    
+    .popular-pokemon .pokemon-type {
+        padding: 2px 8px;
+        font-size: 0.7rem;
     }
 }
 
