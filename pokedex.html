@@ -14,13 +14,19 @@
     <link rel="icon" type="image/x-icon" href="assets/img/icon/favicon.ico">
 </head>
 <body>
+    <!-- Loading State -->
+    <!-- Pindahkan elemen loading langsung di bawah body untuk memastikan centering yang benar -->
+    <div class="loading" id="loading" style="display: none;">
+        <div class="spinner"></div>
+        <p>Memuat Pokemon...</p>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-container">
                 <a href="home.html" class="nav-brand">
-                    <img src="assets/img/icon/pokeball.png" alt="Pokemon Gallery" onerror="this.style.display='none'">
-                    Pokemon Gallery
+                    <img src="assets/img/icon/pokeball.png" alt="Pokemon Gallery" class="nav-brand-logo">
                 </a>
                 
                 <ul class="nav-menu">
@@ -95,34 +101,25 @@
                 <div class="pokemon-stats">
                     <div class="stats-item">
                         <span class="stats-label">Total Pokemon</span>
-                        <span class="stats-value" id="total-pokemon">151</span>
+                        <span class="stats-value" id="total-pokemon"></span>
                     </div>
                     <div class="stats-item">
                         <span class="stats-label">Ditampilkan</span>
-                        <span class="stats-value" id="shown-pokemon">151</span>
+                        <span class="stats-value" id="shown-pokemon"></span>
                     </div>
                 </div>
 
                 <div class="pokemon-grid" id="pokemon-grid">
                     <!-- Pokemon cards will be generated here -->
                 </div>
-
-                <!-- Loading State -->
-                <div class="loading" id="loading" style="display: none;">
-                    <div class="spinner"></div>
-                    <p>Memuat Pokemon...</p>
-                </div>
-
-                <!-- No Results State -->
-                <div class="no-results" id="no-results" style="display: none;">
-                    <div class="no-results-content">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"/>
-                            <path d="m21 21-4.35-4.35"/>
-                        </svg>
-                        <h3>Tidak ada Pokemon ditemukan</h3>
-                        <p>Coba ubah kata kunci pencarian atau filter type</p>
-                    </div>
+                
+                <!-- No Results Message (Simple) -->
+                <div class="no-results-message" id="no-results-message" style="display: none;">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                    <p>Tidak ada Pokemon ditemukan</p>
                 </div>
 
                 <!-- Load More Button -->
@@ -133,13 +130,13 @@
         </section>
     </main>
 
-    <!-- Footer -->
+     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Pokemon Gallery</h3>
-                    <p>Platform terbaik untuk mempelajari dan mengeksplorasi dunia Pokemon dengan informasi lengkap dan akurat.</p>
+                    <p>Platform terbaik untuk mempelajari dan mengeksplorasi dunia Pokemon generasi I dan II dengan informasi lengkap dan akurat.</p>
                 </div>
                 
                 <div class="footer-section">
@@ -160,14 +157,15 @@
                 </div>
                 
                 <div class="footer-section">
-                    <h3>Kontak</h3>
-                    <p>Email: info@pokemongallery.com</p>
-                    <p>Follow kami di social media</p>
+                    <h3>Creator Contact</h3>
+                    <p>Email: <a href="mailto:satriabumi25@gmail.com">satriabumi25@gmail.com</a></p>
+                    <p>GitHub: <a href="https://github.com/satriabumi" target="_blank">satriabumi</a></p>
+                    <p>LinkedIn: <a href="https://www.linkedin.com/in/satriabumikelana" target="_blank">I Kadek Agung Bagus Satria Bumi Kelana</a></p>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 Pokemon Gallery. Dibuat dengan ❤️ untuk komunitas Pokemon.</p>
+                <p>&copy; 2025 Pokemon Gallery. Made by Satria Bumi</p>
             </div>
         </div>
     </footer>

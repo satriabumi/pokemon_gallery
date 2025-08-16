@@ -19,8 +19,7 @@
         <div class="container">
             <div class="nav-container">
                 <a href="home.html" class="nav-brand">
-                    <img src="assets/img/icon/pokeball.png" alt="Pokemon Gallery" onerror="this.style.display='none'">
-                    Pokemon Gallery
+                    <img src="assets/img/icon/pokeball.png" alt="Pokemon Gallery" class="nav-brand-logo">
                 </a>
                 
                 <ul class="nav-menu">
@@ -55,6 +54,20 @@
         <!-- Types Grid -->
         <section class="types-section">
             <div class="container">
+                <!-- Loading State for Types -->
+                <div class="types-loading-state" id="typesLoading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Memuat data tipe Pokemon...</p>
+                </div>
+                
+                <!-- Error State for Types -->
+                <div class="types-error-state" id="typesError" style="display: none;">
+                    <div class="error-icon">⚠️</div>
+                    <h3>Ups! Terjadi Kesalahan</h3>
+                    <p>Tidak dapat memuat data tipe Pokemon. Silakan coba lagi.</p>
+                    <button class="btn btn-primary" onclick="pokemonTypesPage.retryLoadTypes()">Coba Lagi</button>
+                </div>
+
                 <div class="types-grid" id="types-grid">
                     <!-- Type cards will be generated here -->
                 </div>
@@ -74,13 +87,13 @@
         </section>
     </main>
 
-    <!-- Footer -->
+     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Pokemon Gallery</h3>
-                    <p>Platform terbaik untuk mempelajari dan mengeksplorasi dunia Pokemon dengan informasi lengkap dan akurat.</p>
+                    <p>Platform terbaik untuk mempelajari dan mengeksplorasi dunia Pokemon generasi I dan II dengan informasi lengkap dan akurat.</p>
                 </div>
                 
                 <div class="footer-section">
@@ -101,14 +114,15 @@
                 </div>
                 
                 <div class="footer-section">
-                    <h3>Kontak</h3>
-                    <p>Email: info@pokemongallery.com</p>
-                    <p>Follow kami di social media</p>
+                    <h3>Creator Contact</h3>
+                    <p>Email: <a href="mailto:satriabumi25@gmail.com">satriabumi25@gmail.com</a></p>
+                    <p>GitHub: <a href="https://github.com/satriabumi" target="_blank">satriabumi</a></p>
+                    <p>LinkedIn: <a href="https://www.linkedin.com/in/satriabumikelana" target="_blank">I Kadek Agung Bagus Satria Bumi Kelana</a></p>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 Pokemon Gallery. Dibuat dengan ❤️ untuk komunitas Pokemon.</p>
+                <p>&copy; 2025 Pokemon Gallery. Made by Satria Bumi</p>
             </div>
         </div>
     </footer>
