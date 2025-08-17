@@ -717,6 +717,7 @@ p {
     padding: var(--spacing-xl);
     margin: var(--spacing-xl) auto;
     max-width: 500px;
+    width: 100%;
 }
 
 .loading-state .spinner {
@@ -805,6 +806,12 @@ p {
     .btn {
         width: 100%;
         justify-content: center;
+    }
+    
+    /* Ensure loading state is centered on mobile */
+    .loading-state {
+        margin: var(--spacing-md) auto;
+        padding: var(--spacing-md);
     }
 }
 
