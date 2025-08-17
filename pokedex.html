@@ -14,13 +14,6 @@
     <link rel="icon" type="image/x-icon" href="assets/img/icon/favicon.ico">
 </head>
 <body>
-    <!-- Loading State -->
-    <!-- Pindahkan elemen loading langsung di bawah body untuk memastikan centering yang benar -->
-    <div class="loading" id="loading" style="display: none;">
-        <div class="spinner"></div>
-        <p>Memuat Pokemon...</p>
-    </div>
-
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
@@ -107,6 +100,12 @@
                         <span class="stats-label">Ditampilkan</span>
                         <span class="stats-value" id="shown-pokemon"></span>
                     </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="loading-state" id="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Memuat Pokemon...</p>
                 </div>
 
                 <div class="pokemon-grid" id="pokemon-grid">

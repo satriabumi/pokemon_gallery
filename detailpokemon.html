@@ -14,15 +14,38 @@
     <link rel="icon" type="image/x-icon" href="assets/img/icon/favicon.ico">
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="index.html" class="nav-brand">
+                    <img src="assets/img/icon/pokeball.png" alt="Pokemon Gallery" class="nav-brand-logo">
+                </a>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="pokedex.html" class="nav-link">Pokédex</a></li>
+                    <li><a href="pokemontype.html" class="nav-link">Types</a></li>
+                    <li><a href="moves.html" class="nav-link">Moves</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                </ul>
+                
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <!-- Loading State -->
-    <!-- Pindahkan elemen loading langsung di bawah body untuk memastikan centering yang benar -->
-    <div class="loading" id="loading">
+    <div class="loading-state" id="loading">
         <div class="spinner"></div>
         <p>Memuat data Pokemon...</p>
     </div>
 
     <!-- Error State -->
-    <!-- Pindahkan elemen error langsung di bawah body untuk memastikan centering yang benar -->
     <div class="error-state" id="error-state" style="display: none;">
         <div class="error-content">
             <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
