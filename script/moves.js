@@ -5,6 +5,16 @@ class MovesPage {
         this.currentSearch = '';
         this.allMoves = [];
         this.filteredMoves = [];
+        this.movesGrid = document.getElementById('moves-grid'); // Cache elemen grid
+
+        // Mengikat (bind) metode ke instance class untuk memastikan konteks 'this' yang benar
+        this.loadMovesData = this.loadMovesData.bind(this);
+        this.setupEventListeners = this.setupEventListeners.bind(this);
+        this.filterMoves = this.filterMoves.bind(this);
+        this.renderMoves = this.renderMoves.bind(this);
+        this.createMoveCard = this.createMoveCard.bind(this);
+        this.getTypeColor = this.getTypeColor.bind(this);
+
         this.init();
     }
 
@@ -13,144 +23,91 @@ class MovesPage {
         this.setupEventListeners();
     }
 
-    loadMovesData() {
-        this.allMoves = [
-            {
-                name: 'Tackle',
-                type: 'Normal',
-                power: 40,
-                accuracy: 100,
-                category: 'Physical',
-                description: 'Serangan fisik dasar yang menabrak target dengan tubuh.'
-            },
-            {
-                name: 'Ember',
-                type: 'Fire',
-                power: 40,
-                accuracy: 100,
-                category: 'Special',
-                description: 'Menembakkan api kecil yang dapat membakar target.'
-            },
-            {
-                name: 'Water Gun',
-                type: 'Water',
-                power: 40,
-                accuracy: 100,
-                category: 'Special',
-                description: 'Menembakkan air dengan tekanan tinggi ke target.'
-            },
-            {
-                name: 'Vine Whip',
-                type: 'Grass',
-                power: 45,
-                accuracy: 100,
-                category: 'Physical',
-                description: 'Menggunakan sulur tanaman untuk memukul target.'
-            },
-            {
-                name: 'Thunder Shock',
-                type: 'Electric',
-                power: 40,
-                accuracy: 100,
-                category: 'Special',
-                description: 'Menembakkan sengatan listrik ringan ke target.'
-            },
-            {
-                name: 'Confusion',
-                type: 'Psychic',
-                power: 50,
-                accuracy: 100,
-                category: 'Special',
-                description: 'Menggunakan kekuatan psikis untuk menyerang pikiran target.'
-            },
-            {
-                name: 'Rock Throw',
-                type: 'Rock',
-                power: 50,
-                accuracy: 90,
-                category: 'Physical',
-                description: 'Melempar batu ke target dengan kekuatan yang cukup.'
-            },
-            {
-                name: 'Bite',
-                type: 'Dark',
-                power: 60,
-                accuracy: 100,
-                category: 'Physical',
-                description: 'Menggigit target dengan gigi yang tajam.'
-            },
-            {
-                name: 'Poison Powder',
-                type: 'Poison',
-                power: 0,
-                accuracy: 75,
-                category: 'Status',
-                description: 'Menyebarkan serbuk beracun yang dapat meracuni target.'
-            },
-            {
-                name: 'Sleep Powder',
-                type: 'Grass',
-                power: 0,
-                accuracy: 75,
-                category: 'Status',
-                description: 'Menyebarkan serbuk yang dapat membuat target tertidur.'
-            },
-            {
-                name: 'Thunderbolt',
-                type: 'Electric',
-                power: 90,
-                accuracy: 100,
-                category: 'Special',
-                description: 'Menembakkan sengatan listrik yang kuat ke target.'
-            },
-            {
-                name: 'Fire Blast',
-                type: 'Fire',
-                power: 110,
-                accuracy: 85,
-                category: 'Special',
-                description: 'Menembakkan ledakan api yang sangat kuat.'
-            },
-            {
-                name: 'Hydro Pump',
-                type: 'Water',
-                power: 110,
-                accuracy: 80,
-                category: 'Special',
-                description: 'Menembakkan air dengan tekanan sangat tinggi.'
-            },
-            {
-                name: 'Solar Beam',
-                type: 'Grass',
-                power: 120,
-                accuracy: 100,
-                category: 'Special',
-                description: 'Mengumpulkan energi matahari untuk serangan yang sangat kuat.'
-            },
-            {
-                name: 'Earthquake',
-                type: 'Ground',
-                power: 100,
-                accuracy: 100,
-                category: 'Physical',
-                description: 'Mengguncang tanah untuk menyerang semua Pokemon di sekitar.'
-            },
-            {
-                name: 'Psychic',
-                type: 'Psychic',
-                power: 90,
-                accuracy: 100,
-                category: 'Special',
-                description: 'Menggunakan kekuatan psikis yang kuat untuk menyerang.'
-            }
-        ];
+    async loadMovesData() {
+        if (!this.movesGrid) return;
 
-        this.filteredMoves = [...this.allMoves];
-        this.renderMoves();
+        this.showLoading();
+
+        try {
+            // Cek apakah data sudah ada di localStorage dan masih valid (kurang dari 24 jam)
+            const cachedData = localStorage.getItem('pokemonMoves');
+            const cacheTimestamp = localStorage.getItem('pokemonMovesTimestamp');
+            const now = Date.now();
+            const cacheValid = cacheTimestamp && (now - parseInt(cacheTimestamp) < 86400000); // 24 jam
+
+            if (cachedData && cacheValid) {
+                console.log('Menggunakan data moves dari cache');
+                this.allMoves = JSON.parse(cachedData);
+                this.filteredMoves = [...this.allMoves];
+                this.renderMoves();
+                this.hideLoading();
+                return;
+            }
+
+            const response = await fetch('https://pokeapi.co/api/v2/move?limit=100'); // Batasi ke 100 moves
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            const moveUrls = data.results.map(move => move.url);
+
+            // Gunakan Promise.allSettled untuk menghindari kegagalan total jika ada request yang gagal
+            const moveDetailsPromises = moveUrls.map(url => fetch(url).then(res => res.json()));
+            const detailedMovesResults = await Promise.allSettled(moveDetailsPromises);
+
+            this.allMoves = detailedMovesResults
+                .filter(result => result.status === 'fulfilled')
+                .map(result => {
+                    const moveData = result.value;
+                    let description = 'Tidak ada deskripsi.';
+                    
+                    // Penanganan yang lebih robust untuk effect entries
+                    if (moveData.effect_entries && moveData.effect_entries.length > 0) {
+                        const descriptionEntry = moveData.effect_entries.find(entry => 
+                            entry.language && entry.language.name === 'en'
+                        );
+                        description = descriptionEntry ? descriptionEntry.short_effect : moveData.effect_entries[0].short_effect || description;
+                    }
+
+                    // Pastikan property damage_class ada
+                    const category = (moveData.damage_class && moveData.damage_class.name) ? 
+                        moveData.damage_class.name : 'status';
+
+                    return {
+                        name: moveData.name.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+                        type: moveData.type ? moveData.type.name : 'normal',
+                        power: moveData.power !== null ? moveData.power : '—',
+                        accuracy: moveData.accuracy !== null ? moveData.accuracy : '—',
+                        category: category,
+                        description: description
+                    };
+                });
+
+            // Simpan di localStorage untuk caching
+            try {
+                localStorage.setItem('pokemonMoves', JSON.stringify(this.allMoves));
+                localStorage.setItem('pokemonMovesTimestamp', now.toString());
+            } catch (e) {
+                console.warn('Gagal menyimpan cache:', e);
+            }
+
+            this.filteredMoves = [...this.allMoves];
+            this.renderMoves();
+            this.hideLoading();
+
+        } catch (error) {
+            console.error('Gagal memuat data jurus:', error);
+            this.hideLoading();
+            this.movesGrid.innerHTML = `
+                <div class="error-message">
+                    <h3>Gagal memuat jurus</h3>
+                    <p>Terjadi kesalahan saat mengambil data dari PokeAPI. Silakan coba lagi nanti.</p>
+                </div>
+            `;
+        }
     }
 
     setupEventListeners() {
-        // Search functionality
         const searchInput = document.querySelector('.search-input');
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
@@ -159,13 +116,10 @@ class MovesPage {
             });
         }
 
-        // Filter buttons
         const filterButtons = document.querySelectorAll('.filter-btn');
         filterButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                // Remove active class from all buttons
                 filterButtons.forEach(b => b.classList.remove('active'));
-                // Add active class to clicked button
                 e.target.classList.add('active');
                 
                 this.currentFilter = e.target.dataset.type;
@@ -175,27 +129,51 @@ class MovesPage {
     }
 
     filterMoves() {
+        if (!this.allMoves || this.allMoves.length === 0) {
+            this.filteredMoves = [];
+            return;
+        }
+
         this.filteredMoves = this.allMoves.filter(move => {
-            const matchesSearch = move.name.toLowerCase().includes(this.currentSearch) ||
-                                move.type.toLowerCase().includes(this.currentSearch) ||
-                                move.description.toLowerCase().includes(this.currentSearch);
-            
-            const matchesFilter = this.currentFilter === 'all' || 
-                                move.category.toLowerCase() === this.currentFilter.toLowerCase();
-            
-            return matchesSearch && matchesFilter;
+            try {
+                // Lebih defensive dengan pengecekan null/undefined
+                const moveName = (move.name || '').toLowerCase();
+                const moveType = (move.type || '').toLowerCase();
+                const moveDesc = (move.description || '').toLowerCase();
+                const moveCategory = (move.category || '').toLowerCase();
+                
+                const searchTerm = this.currentSearch.toLowerCase();
+                
+                const matchesSearch = searchTerm === '' || 
+                    moveName.includes(searchTerm) ||
+                    moveType.includes(searchTerm) || 
+                    moveDesc.includes(searchTerm);
+                
+                const matchesFilter = this.currentFilter === 'all' || 
+                    moveCategory === this.currentFilter.toLowerCase();
+                
+                return matchesSearch && matchesFilter;
+            } catch (e) {
+                console.error('Error filtering move:', move, e);
+                return false;
+            }
         });
 
         this.renderMoves();
     }
 
     renderMoves() {
+        // Selalu dapatkan element terbaru untuk menghindari reference yang tidak valid
         const movesGrid = document.getElementById('moves-grid');
-        if (!movesGrid) return;
+        if (!movesGrid) {
+            console.error('Moves grid element not found');
+            return;
+        }
 
         movesGrid.innerHTML = '';
 
-        if (this.filteredMoves.length === 0) {
+        // Handling untuk jika filtered moves kosong
+        if (!this.filteredMoves || this.filteredMoves.length === 0) {
             movesGrid.innerHTML = `
                 <div class="no-results">
                     <h3>Tidak ada jurus ditemukan</h3>
@@ -205,37 +183,66 @@ class MovesPage {
             return;
         }
 
+        // Membuat fragment untuk mengurangi DOM reflow
+        const fragment = document.createDocumentFragment();
+        
         this.filteredMoves.forEach(move => {
-            const moveCard = this.createMoveCard(move);
-            movesGrid.appendChild(moveCard);
+            try {
+                const moveCard = this.createMoveCard(move);
+                fragment.appendChild(moveCard);
+            } catch (e) {
+                console.error('Error creating card for move:', move, e);
+            }
         });
+
+        // Append semua card sekaligus
+        movesGrid.appendChild(fragment);
     }
 
     createMoveCard(move) {
+        if (!move) {
+            console.error('Attempted to create card with undefined move');
+            return document.createElement('div'); // Return empty div to prevent errors
+        }
+        
         const card = document.createElement('div');
         card.className = 'move-card';
         
+        // Sanitasi data untuk mencegah XSS dan error
+        const sanitize = (str) => {
+            if (str === undefined || str === null) return '';
+            return String(str).replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        };
+        
+        // Validasi semua property untuk mencegah error rendering
+        const name = sanitize(move.name || 'Unknown Move');
+        const type = (move.type || 'normal').toLowerCase();
+        const description = sanitize(move.description || 'No description available');
+        const power = move.power !== undefined ? sanitize(move.power) : '—';
+        const accuracy = move.accuracy !== undefined ? sanitize(move.accuracy) : '—';
+        const category = (move.category || 'status').toLowerCase();
+        
         card.innerHTML = `
             <div class="move-header">
-                <span class="move-name">${move.name}</span>
-                <span class="move-type type-badge ${move.type.toLowerCase()}" style="background-color: ${this.getTypeColor(move.type)}">${move.type}</span>
+                <span class="move-name">${name}</span>
+                <span class="move-type type-badge ${type}" style="background-color: ${this.getTypeColor(type)}">${type}</span>
             </div>
-            <p class="move-description">${move.description}</p>
+            <p class="move-description">${description}</p>
             <div class="move-stats">
                 <div class="move-stat">
                     <span class="move-stat-label">Power</span>
-                    <span class="move-stat-value">${move.power}</span>
+                    <span class="move-stat-value">${power}</span>
                 </div>
                 <div class="move-stat">
                     <span class="move-stat-label">Accuracy</span>
-                    <span class="move-stat-value">${move.accuracy}%</span>
+                    <span class="move-stat-value">${accuracy}${accuracy !== '—' ? '%' : ''}</span>
                 </div>
                 <div class="move-stat">
                     <span class="move-stat-label">Category</span>
-                    <span class="move-stat-value">${move.category}</span>
+                    <span class="move-stat-value">${category.charAt(0).toUpperCase() + category.slice(1)}</span>
                 </div>
             </div>
-            <div class="move-category ${move.category.toLowerCase()}">${move.category}</div>
+            <div class="move-category ${category}">${category.charAt(0).toUpperCase() + category.slice(1)}</div>
         `;
 
         return card;
@@ -265,9 +272,19 @@ class MovesPage {
         
         return typeColors[type.toLowerCase()] || '#A8A878';
     }
+
+    showLoading() {
+        const loading = document.getElementById('movesLoading');
+        if (loading) loading.style.display = 'flex';
+        if (this.movesGrid) this.movesGrid.innerHTML = '';
+    }
+
+    hideLoading() {
+        const loading = document.getElementById('movesLoading');
+        if (loading) loading.style.display = 'none';
+    }
 }
 
-// Initialize Moves page when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.movesPage = new MovesPage();
 });
