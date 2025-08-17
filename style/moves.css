@@ -32,6 +32,28 @@
     gap: var(--spacing-lg);
 }
 
+/* Loading and Error Messages */
+.loading-indicator,
+.error-message,
+.no-results {
+    grid-column: 1 / -1; /* Membentang di seluruh kolom grid */
+    text-align: center;
+    padding: var(--spacing-xxl);
+    color: var(--gray);
+    font-size: 1.2rem;
+}
+
+.loading-indicator h3,
+.error-message h3,
+.no-results h3 {
+    color: var(--dark-gray);
+    margin-bottom: var(--spacing-md);
+}
+
+.error-message {
+    color: var(--danger-color);
+}
+
 .move-card {
     background: var(--white);
     border-radius: var(--border-radius-lg);
@@ -39,6 +61,9 @@
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--light-gray);
     transition: var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .move-card:hover {
@@ -74,18 +99,29 @@
     color: var(--gray);
     margin-bottom: var(--spacing-lg);
     line-height: 1.6;
+    min-height: 4.8rem; /* 3 baris dengan line-height 1.6 */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .move-stats {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    /* Memberikan sedikit space untuk flexbox */
+    flex: 1;
 }
 
 .move-stat {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
     padding: var(--spacing-md);
     background: var(--bg-secondary);
     border-radius: var(--border-radius-md);
@@ -93,22 +129,23 @@
 }
 
 .move-stat:hover {
-    background: var(--primary-color);
-    color: var(--white);
+    background: rgba(74, 144, 226, 0.1);
 }
 
 .move-stat-label {
-    font-weight: 600;
-    color: inherit;
+    font-weight: 500;
+    color: var(--gray);
+    font-size: 0.85rem;
+    margin-bottom: var(--spacing-xs);
 }
 
 .move-stat-value {
     font-weight: 700;
-    color: inherit;
+    color: var(--dark-gray);
+    font-size: 1.1rem;
 }
 
 .move-category {
-    margin-top: var(--spacing-md);
     padding: var(--spacing-sm) var(--spacing-md);
     background: var(--light-gray);
     border-radius: var(--border-radius-sm);
@@ -117,6 +154,10 @@
     color: var(--dark-gray);
     text-transform: uppercase;
     font-size: 0.9rem;
+    /* Auto margin top untuk mendorong ke bawah dalam flexbox */
+    margin-top: auto;
+    align-self: center;
+    width: 100%;
 }
 
 /* Category-specific colors */
@@ -217,7 +258,25 @@
     }
     
     .move-stats {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    /* Mengubah layout untuk layar kecil */
+    .move-card {
+        min-height: auto; /* Menghilangkan min-height */
+        height: auto;
+    }
+    
+    .move-description {
+        min-height: auto; /* Menghilangkan min-height */
+        display: block; /* Menghilangkan line-clamp */
+        overflow: visible;
+        -webkit-line-clamp: unset;
+        line-clamp: unset;
+    }
+    
+    .move-category {
+        margin-top: var(--spacing-md); /* Kembali ke margin standar */
     }
 
     .search-container {
@@ -238,5 +297,18 @@
         flex-direction: column;
         align-items: flex-start;
         gap: var(--spacing-sm);
+    }
+    
+    /* Stats pada tampilan sangat kecil */
+    .move-stat {
+        padding: var(--spacing-sm);
+    }
+    
+    .move-stat-label {
+        font-size: 0.8rem;
+    }
+    
+    .move-stat-value {
+        font-size: 0.9rem;
     }
 }

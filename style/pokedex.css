@@ -269,37 +269,25 @@
 }
 
 /* Loading State - Enhanced */
-.loading {
+/* Loading dapat tampil dalam 2 mode: fixed (overlay) atau dalam pokemon-section */
+#loading {
+    margin: var(--spacing-xl) auto;
+    padding: var(--spacing-xl);
+    text-align: center;
+    width: 100%;
+}
+
+#loading.overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background: rgba(255, 255, 255, 0.95);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    margin: 0;
+    padding: 0;
     z-index: 9999;
     backdrop-filter: blur(5px);
-}
-
-.loading .spinner {
-    width: 60px;
-    height: 60px;
-    border: 6px solid #f3f3f3;
-    border-top: 6px solid var(--primary-color);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: var(--spacing-lg);
-}
-
-.loading p {
-    font-size: 1.1rem;
-    color: var(--dark-gray);
-    font-weight: 500;
-    margin: 0;
-    animation: pulse 1.5s ease-in-out infinite;
 }
 
 @keyframes spin {

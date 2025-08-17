@@ -29,8 +29,8 @@
     --bg-card: #FFFFFF;
     
     /* Typography */
-    --font-primary: 'Inter', Tahoma, Geneva, Verdana, sans-serif;
-    --font-secondary: 'Arial', sans-serif;
+    --font-primary: 'Inter';
+    --font-secondary: 'Arial';
     
     /* Spacing */
     --spacing-xs: 0.25rem;
@@ -700,6 +700,41 @@ p {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Standard Loading State */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--spacing-xl);
+    margin: var(--spacing-xl) auto;
+    max-width: 500px;
+}
+
+.loading-state .spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto var(--spacing-lg);
+}
+
+.loading-state p {
+    font-size: 1.1rem;
+    color: var(--dark-gray);
+    font-weight: 500;
+    margin: 0;
+    animation: pulse 1.5s ease-in-out infinite;
 }
 
 /* Responsive Design */
